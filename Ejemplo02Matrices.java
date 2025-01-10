@@ -20,7 +20,6 @@ public class Ejemplo02Matrices {
         imprimirMatriz(notas);
         rellenarMatriz(notas, -9);
         imprimirMatriz(notas);
-        
     }
     
     public static void imprimirMatriz(int[][] matriz) {
@@ -41,5 +40,4 @@ public class Ejemplo02Matrices {
             }
         }
     }
-    
 }
