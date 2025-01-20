@@ -18,6 +18,7 @@ public class Ejercicio03 {
         
         for (int i = 0; i < primitiva.length; i++) {
             primitiva[i] = (int) (Math.random() * 49) + 1;
+            boolean repetido;
         }
         
         for (int i = 0; i < primitiva.length; i++) {
