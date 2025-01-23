@@ -23,9 +23,17 @@ public class Main00 {
         numerosLoteria.add(47);
         numerosLoteria.add(48);
         
-        
-        
         System.out.println(numerosLoteria.toString());
+        
+        System.out.println("---------------------");
+        
+        HashSet<Persona> listaPersona = new HashSet<>();
+        listaPersona.add(new Persona("Pepe", 15, "1111A"));
+        listaPersona.add(new Persona("Pepe", 15, "1111A"));
+        
+        System.out.println("listaPersonas = " + listaPersona);
+        System.out.println("Hash de Pepe = " + "Pepe".hashCode());
+        System.out.println("Hash de 1111A = " + "1111A".hashCode());
     }
     
 }
