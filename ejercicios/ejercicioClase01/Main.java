@@ -1,6 +1,6 @@
 package unidad05.ejercicios.ejercicioClase01;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  *
@@ -10,18 +10,21 @@ public class Main {
     
     public static void main(String[] args) {
         
-        MiArray a = new MiArray(3);
+        MiArray a = new MiArray(7);
         
-        while (!a.estaLleno()) {
-//            a.insertar();
-            a.add(); 
-        }
+        a.add();
+        a.add();
+        a.add();
+        a.add();
         
-        System.out.println("El valor maximo es: " + a.max());
-        a.aumentarLength();
+        System.out.println("El valor minimo de tu array es: " + a.min());
+        System.out.println("La media aritmetica de tu array es: " + a.media());
+
+        a.mostrarArary();
         
-//        a.insertar(7, -20);
-        a.remove(67);
+        System.out.println("Valor aleatorio del array " + a.getRandom());
+        
+        a.insertarEn(7, 5);
     }
     
 }
