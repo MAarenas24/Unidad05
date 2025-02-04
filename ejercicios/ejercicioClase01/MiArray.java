@@ -16,25 +16,7 @@ public class MiArray {
     private static final int LENGTH_INCREMENTO = 5;
     private Scanner entradaTeclado = new Scanner(System.in);
     private int[] array;
-    private int arrayLength = 0;
-
-    /**
-     * Crea un array de la longitud indicada y si es menor que 0 salta un
-     * mensaje de error
-     *
-     * @param length longitud del array
-     * @param numeroRelleno numero que se va rellenar el array
-     */
-    public MiArray(int length, int numeroRelleno) {
-        try {
-            array = new int[length];
-            for (int i = 0; i < array.length; i++) {
-                array[i] = numeroRelleno;
-            }
-        } catch (NegativeArraySizeException e) {
-            System.out.println("ERROR! No se ha podido crear el array, has metido que la longitud sea menor de 0");
-        }
-    }
+    private int elementosOcupados = 0;
 
     public MiArray(int length) {
         array = new int[length];
@@ -45,15 +27,15 @@ public class MiArray {
     }
 
     public int length() {
-        return arrayLength;
+        return elementosOcupados;
     }
 
     public boolean estaLleno() {
-        return arrayLength == array.length;
+        return elementosOcupados == array.length;
     }
 
     public boolean isEmpty() {
-        return arrayLength == 0;
+        return elementosOcupados == 0;
     }
 
     public void add() {
@@ -63,11 +45,12 @@ public class MiArray {
 
     private void add(int numeroAlFinal) {
         if (estaLleno()) {
-            aumentarLength();
+            System.out.printf("El numero %d no se ha añadido. El array esta lleno", numeroAlFinal);
+            return;
         }
-        array[arrayLength++] = numeroAlFinal;
+        array[elementosOcupados++] = numeroAlFinal;
         System.out.printf("El numero %d se ha insertado correctamente%n", numeroAlFinal);
-        mostrarArary();
+        System.out.println(Arrays.toString(array));
     }
 
     public void insertar() {
@@ -77,30 +60,32 @@ public class MiArray {
 
     private void insertar(int numeroAlPrincipio) {
         if (estaLleno()) {
-            aumentarLength();
+            System.out.printf("El numero %d no se ha insertado. El array esta lleno", numeroAlPrincipio);
+            return;
         }
         //Desplazamos los datos a la derecha
-        for (int i = arrayLength; i > 0; i--) {
+        for (int i = elementosOcupados; i > 0; i--) {
             array[i] = array[i - 1];
         }
         array[0] = numeroAlPrincipio;
-        arrayLength++;
+        elementosOcupados++;
         System.out.printf("El numero %d se ha insertado correctamente%n", numeroAlPrincipio);
-        mostrarArary();
+        System.out.println(Arrays.toString(array));
     }
 
-    public void insertarEn(int numAInsertar, int posicion) {
+    public void insertar(int numAInsertar, int posicion) {
         if (estaLleno()) {
-            aumentarLength();
+            System.out.printf("El numero %d no se ha insertado. El array esta lleno", numAInsertar);
+            return;
         }
         try {
-            for (int i = arrayLength; i > posicion; i--) {
+            for (int i = elementosOcupados; i > posicion; i--) {
                 array[i] = array[i - 1];
             }
             array[posicion] = posicion;
-            arrayLength++;
+            elementosOcupados++;
             System.out.printf("El numero %d se ha insertado correctamente%n", numAInsertar);
-            mostrarArary();
+            System.out.println(Arrays.toString(array));
         } catch (IndexOutOfBoundsException e) {
             System.out.printf("El numero %d no se ha insertado. Posicion en la que deseas insertar no existe", numAInsertar);
             return;
@@ -113,71 +98,24 @@ public class MiArray {
             System.out.println("El array esta vacio");
             return;
         }
-        for (int i = 0; i < arrayLength; i++) {
+        for (int i = 0; i < elementosOcupados; i++) {
             if (array[i] == numeroAQuitar) {
                 array[i] = 0;
                 System.out.println("Se ha eliminado correctamente");
-
+                return;
             }
         }
-        mostrarArary();
-    }
-
-    public void borrar(int posicion) {
-        if (isEmpty()) {
-            System.out.println("El array esta vacio");
-            return;
-        }
-        try {
-            for (int i = 0; i < arrayLength; i++) {
-                if (posicion == array[i]) {
-                    array[i] = 0;
-                }
-            }
-            for (int i = arrayLength; i > 0; i--) {
-                array[i - 1] = array[i];
-            }
-        } catch (IndexOutOfBoundsException e) {
-            System.out.println("has puesto posiciones fuera del array");
-        }
-
-    }
-
-    public void borrar(int desde, int hasta) {
-        if (isEmpty()) {
-            System.out.println("El array esta vacio");
-            return;
-        }
-        try {
-            for (int i = desde; i < hasta; i++) {
-                array[i] = 0;
-            }
-        } catch (IndexOutOfBoundsException e) {
-            System.out.println("has puesto posiciones fuera del array");
-        }
-    }
-    
-    public void borrarDesde(int posicion) {
-        if (isEmpty()) {
-            System.out.println("El array esta vacio");
-            return;
-        }
-        try {
-            for (int i = posicion; i < arrayLength; i++) {
-                array[i] = 0;
-            }
-        } catch (IndexOutOfBoundsException e) {
-            System.out.println("has puesto posiciones fuera del array");
-        }
+        System.out.println(Arrays.toString(array));
     }
 
     public void aumentarLength() {
         int[] arrayAux = new int[array.length + LENGTH_INCREMENTO];
-        for (int i = 0; i < arrayLength; i++) {
+        for (int i = 0; i < elementosOcupados; i++) {
             arrayAux[i] = array[i];
         }
         array = arrayAux;
         System.out.println("El array ha aumentado su tamaño: ");
+        System.out.println(Arrays.toString(array));
     }
 
     public int max() {
@@ -186,46 +124,12 @@ public class MiArray {
             return 0;
         }
         int maximo = Integer.MIN_VALUE;
-        for (int i = 0; i < arrayLength; i++) {
+        for (int i = 0; i < elementosOcupados; i++) {
             if (maximo < array[i]) {
                 maximo = array[i];
             }
         }
         return maximo;
-    }
-
-    public int min() {
-        if (isEmpty()) {
-            System.out.println("El array esta vacio");
-            return 0;
-        }
-        int minimo = Integer.MAX_VALUE;
-        for (int i = 0; i < arrayLength; i++) {
-            if (minimo > array[i]) {
-                minimo = array[i];
-            }
-        }
-        return minimo;
-    }
-
-    public double media() {
-        if (isEmpty()) {
-            System.out.println("El array esta vacio");
-            return 0;
-        }
-        double media = 0;
-        int suma = 0;
-        int contadorDeNumeros = 0;
-        for (contadorDeNumeros = 0; contadorDeNumeros < arrayLength; contadorDeNumeros++) {
-            suma += array[contadorDeNumeros];
-        }
-        media = (double) suma / contadorDeNumeros;
-        return media;
-    }
-
-    public int getRandom() {
-        int numeroAleatorio = (int) (Math.random() * arrayLength);
-        return array[numeroAleatorio];
     }
 
     private int leerNumeroDeTeclado(String msg) {
@@ -256,17 +160,7 @@ public class MiArray {
         int numElementos = leerNumeroDeTeclado("Introduce el tamaño del array: ");
         array = new int[numElementos];
         System.out.println("Array creado correctamente");
+        System.out.println(Arrays.toString(array));
     }
 
-    public void mostrarArary() {
-        if (isEmpty()) {
-            System.out.println("[]");
-        }
-        System.out.print("[");
-        for (int i = 0; i < arrayLength; i++) {
-            System.out.print(array[i] + ", ");
-        }
-        System.out.print("]");
-        System.out.println("");
-    }
 }
