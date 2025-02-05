@@ -1,5 +1,7 @@
 package unidad05.listasEnlazadas;
 
+import java.util.LinkedList;
+
 /**
  *
  * @author Miguel Angel Arenas
@@ -24,6 +26,17 @@ public class Main {
         listaEnlazada.insert(2);
         System.out.println("Nº elementos = " + listaEnlazada.size());
         listaEnlazada.printLista();
+        System.out.println("-----------------");
+        listaEnlazada.add(15);
+        System.out.println("Nº elementos = " + listaEnlazada.size());
+        listaEnlazada.printLista();
         
+        System.out.println("----");
+        LinkedList<Integer> listaEnlazada2 = new LinkedList<>();
+        listaEnlazada2.add(4);
+        listaEnlazada2.add(9);
+        listaEnlazada2.add(11);
+        System.out.println(listaEnlazada2.toString());
+//        listaEnlazada2.is
     }
 }
